@@ -1,13 +1,18 @@
-"use client"
+"use client";
+import { useAuth } from "@/contexts/auth";
 import { handleLogin, handleSignUp } from "@/firebase/auth";
 import React, { useState } from "react";
 
 export default function Login() {
+  const [email, setEmail] = useState("s2@gmail.com");
+  const [password, setPassword] = useState("123123123");
+  const { setCurrentUser } = useAuth();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const performLogin = () => {
+    const response = handleLogin(email, password);
 
-
+    setCurrentUser(response.user);
+  };
 
   return (
     <div className="flex flex-col">
@@ -26,7 +31,7 @@ export default function Login() {
       />
       <button
         onClick={(e) => {
-          handleLogin(email,password);
+          performLogin();
         }}
       >
         Login
