@@ -2,9 +2,16 @@ import express from "express";
 import { verifyToken } from "./middlewares";
 import cors from "cors";
 import { getFirestore } from "firebase-admin/firestore";
+import { sendEmailNotification } from "./services/emails";
+
+require('dotenv').config()
+
+
+
 
 const app = express();
 const cron = require('node-cron');
+
 
 app.use(cors());
 
@@ -30,6 +37,9 @@ app.post("/", verifyToken, (req, res) => {
 
 app.post("/authenticate", verifyToken, async (req, res) => {
   console.log("post...");
+
+  // sendEmailNotification("spamsachintom@gmail.com","AAPL","122")
+
 
   const snapshot = await db
     .collection("users")
@@ -90,9 +100,9 @@ app.post("/set-threshold", verifyToken, async (req, res) => {
 });
 
 
-cron.schedule('*/10 * * * *', () => {
+cron.schedule('0 0 * * *', () => {
   
-  checkAndSendAlerts();
+  // checkAndSendAlerts();
 });
 
 app.listen(4000, () => {

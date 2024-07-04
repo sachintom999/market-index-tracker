@@ -1,6 +1,7 @@
+import { sendEmailNotification } from "./emails";
+
 const { db } = require('../firebase/admin');
 const axios = require('axios');
-const nodemailer = require('nodemailer');
 
 const API_KEY = 'API_KEY';
 
@@ -22,29 +23,6 @@ const checkAndSendAlerts = async () => {
   }
 };
 
-const sendEmailNotification = (email, index, currentPrice) => {
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'your-email@gmail.com',
-      pass: 'your-email-password',
-    },
-  });
 
-  const mailOptions = {
-    from: 'your-email@gmail.com',
-    to: email,
-    subject: `Stock Alert for ${index}`,
-    text: `The current price of ${index} is ${currentPrice}`,
-  };
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.error('Error sending email', error);
-    } else {
-      console.log('Email sent:', info.response);
-    }
-  });
-};
-
-module.exports = { checkAndSendAlerts, saveUserThreshold };
+module.exports = { checkAndSendAlerts };
