@@ -4,6 +4,7 @@ import cors from "cors";
 import { getFirestore } from "firebase-admin/firestore";
 
 const app = express();
+const cron = require('node-cron');
 
 app.use(cors());
 
@@ -86,6 +87,12 @@ app.post("/set-threshold", verifyToken, async (req, res) => {
   } catch (error) {
     res.status(500).json({ error });
   }
+});
+
+
+cron.schedule('*/10 * * * *', () => {
+  
+  checkAndSendAlerts();
 });
 
 app.listen(4000, () => {
