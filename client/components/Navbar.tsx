@@ -2,6 +2,8 @@
 import { useAuth } from "@/contexts/auth";
 import { handleLogout } from "@/firebase/auth";
 
+import Link from "next/link";
+
 export default function Navbar() {
   const { currentUser, setCurrentUser } = useAuth();
   console.log({ currentUser });
@@ -14,15 +16,22 @@ export default function Navbar() {
   return (
     <div>
       User: {currentUser ? currentUser.email : "Not logged in"}
-      <p>
+      <div>
         {currentUser ? (
           <button onClick={performLogout} className="bg-green-400">
             Logout
           </button>
         ) : (
-          <button className="bg-blue-500">Login</button>
+          <div className="flex gap-4">
+            <button>
+              <Link href="/login">Login</Link>
+            </button>
+            <button>
+              <Link href="/register">Register</Link>
+            </button>
+          </div>
         )}
-      </p>
+      </div>
     </div>
   );
 }

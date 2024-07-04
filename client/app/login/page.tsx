@@ -2,16 +2,21 @@
 import { useAuth } from "@/contexts/auth";
 import { handleLogin, handleSignUp } from "@/firebase/auth";
 import React, { useState } from "react";
+import { useRouter } from 'next/navigation'
 
 export default function Login() {
   const [email, setEmail] = useState("s2@gmail.com");
   const [password, setPassword] = useState("123123123");
   const { setCurrentUser } = useAuth();
+  const router = useRouter()
 
-  const performLogin = () => {
-    const response = handleLogin(email, password);
+  const performLogin =  async() => {
+    const response = await handleLogin(email, password);
 
     setCurrentUser(response.user);
+    router.push("/")
+
+    
   };
 
   return (
