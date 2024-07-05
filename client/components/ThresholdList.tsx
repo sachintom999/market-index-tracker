@@ -46,7 +46,9 @@ const ThresholdList = () => {
 
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-white shadow-md rounded-md">
-      <h2 className="text-lg font-semibold mb-4">Thresholds List</h2>
+      <h2 className="text-lg font-semibold mb-4 text-gray-700">
+        Price triggers
+      </h2>
 
       {thresholds.length === 0 ? (
         <p className="text-gray-500">No thresholds added yet.</p>
@@ -56,13 +58,16 @@ const ThresholdList = () => {
             thresholds?.map((threshold) => (
               <li key={threshold.id} className="py-4">
                 <div className="flex justify-between items-center">
-                  <div className="flex">
+                  <div className="flex gap-2">
                     {/* <p className="text-sm font-medium text-gray-900">{threshold.index}</p> */}
                     <p className="text-sm text-gray-500">
-                      Direction: {threshold.type}
+                      <span className="font-bold">Direction:</span>
+                      {threshold.type}
                     </p>
                     <p className="text-sm text-gray-500">
-                      Value: {threshold.value}
+                      <span className="font-bold">Value:</span>
+
+                      {threshold.value}
                     </p>
                   </div>
                   {/* Add edit/delete options if needed */}

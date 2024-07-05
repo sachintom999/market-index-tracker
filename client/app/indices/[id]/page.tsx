@@ -2,7 +2,7 @@ import IndexDetail from "@/components/IndexDetail";
 
 export default function indexId() {
   return (
-    <div>
+    <div className="bg-slate-300">
       <IndexDetail />
     </div>
   );

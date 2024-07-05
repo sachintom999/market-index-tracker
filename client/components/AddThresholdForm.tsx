@@ -25,7 +25,7 @@ const AddThresholdForm = () => {
       },
     };
 
-    const apiUrl = `${process.env.NEXT_PUBLIC_API_ENDPOINT}/set-threshold`; // Replace with your API endpoint
+    const apiUrl = `${process.env.NEXT_PUBLIC_API_ENDPOINT}/alerts/set-threshold`; // Replace with your API endpoint
     const postData = {
       index,
       type: direction,
@@ -48,7 +48,7 @@ const AddThresholdForm = () => {
 
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-gray-200 shadow-md rounded-md">
-      <h2 className="text-lg text-gray-500 font-semibold mb-4">Add Threshold</h2>
+      <h2 className="text-lg text-gray-500 font-semibold mb-4">Add price trigger</h2>
       <form onSubmit={handleSubmit}>
         {/* Dropdown for direction */}
         <div className="mb-4">
@@ -61,7 +61,7 @@ const AddThresholdForm = () => {
           <select
             id="direction"
             name="direction"
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white text-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             value={direction}
             onChange={(e) => setDirection(e.target.value)}
           >
@@ -76,13 +76,13 @@ const AddThresholdForm = () => {
             htmlFor="thresholdValue"
             className="block text-sm font-medium text-gray-700"
           >
-            Threshold Value
+            Trigger value
           </label>
           <input
             type="number"
             id="thresholdValue"
             name="thresholdValue"
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="mt-1  text-black block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             placeholder="Enter threshold value"
             value={thresholdValue}
             onChange={(e) => setThresholdValue(e.target.value)}

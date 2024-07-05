@@ -1,10 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import { LineChart } from "./LineChart";
 import AddThresholdForm from "./AddThresholdForm";
 import ThresholdList from "./ThresholdList";
 import MyDatePicker from "./DatePicker";
-import { useMarketData } from "@/contexts/marketData";
 import Link from "next/link";
 import LineChart3 from "./LineChart3";
 import withAuth from "./withAuth";
@@ -19,10 +17,9 @@ function IndexDetail() {
       <div className="w-3/4 m-auto">
         <MyDatePicker />
         <LineChart3 />
-
         <ThresholdList />
+      <AddThresholdForm/>
       </div>
-      {/* <AddThresholdForm/> */}
     </div>
   );
 }

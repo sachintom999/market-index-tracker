@@ -4,7 +4,9 @@ const nodemailer = require("nodemailer");
 export const sendEmailNotification = (
   recipient: string,
   index: string,
-  price: string
+  triggerPrice: string,
+  type: string,
+  currentPrice: string,
 ) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -17,8 +19,8 @@ export const sendEmailNotification = (
   const mailOptions = {
     from: process.env.EMAIL_ADDRESS,
     to: recipient,
-    subject: `Stock Alert for ${index}`,
-    text: `The current price of ${index} is ${price}`,
+    subject: `IndexPulse - Price alert for ${index}`,
+    text: `The current price of ${index} is ${currentPrice} which is ${type} the trigger price of ${triggerPrice}`,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {

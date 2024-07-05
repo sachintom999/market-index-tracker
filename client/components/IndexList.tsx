@@ -30,7 +30,7 @@ function IndexList() {
   }, []);
 
   return (
-    <div className="p-4 h-screen">
+    <div className="p-4 h-screen ">
       <h2 className="text-gray-600 text-xl font-bold">Indices</h2>
 
       <div className="h-5/6 overflow-y-auto mt-4 p-2 rounded">
