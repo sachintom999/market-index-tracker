@@ -4,24 +4,19 @@ import React, { useEffect, useState } from "react";
 import { auth } from "@/firebase/config";
 import axios from "axios";
 import { useParams } from "next/navigation";
-import { ToastContainer, toast } from 'react-toastify';
+
 import { useMarketData } from "@/contexts/marketData";
 
 const ThresholdList = () => {
   const [thresholds, setThresholds] = useState([]);
 
-  const {triggers,setTriggers} = useMarketData()
-
-
-  const notify = () => toast("Wow so easy!");
+  const { triggers, setTriggers } = useMarketData();
 
   const { id: index } = useParams();
 
   useEffect(() => {
     const fetchThresholds = async () => {
       const token = await auth.currentUser?.getIdToken();
-
-      console.log({ token });
 
       const axiosConfig = {
         headers: {
@@ -32,16 +27,11 @@ const ThresholdList = () => {
 
       const apiUrl = `${process.env.NEXT_PUBLIC_API_ENDPOINT}/alerts/getThresholds/${index}`;
 
-      console.log({ apiUrl });
-
       axios
         .get(apiUrl, axiosConfig)
         .then((response) => {
-          console.log("Response data:", response.data);
-
           setThresholds(response.data.data);
-
-          console.log("thresgolds:", thresholds);
+          setTriggers(response.data.data);
         })
         .catch((error) => {
           console.error("Error:", error);
@@ -57,12 +47,12 @@ const ThresholdList = () => {
         Price triggers
       </h2>
 
-      {thresholds.length === 0 ? (
+      {triggers?.length === 0 ? (
         <p className="text-gray-500 text-sm">No triggers added.</p>
       ) : (
         <ul className="divide-y divide-gray-200">
-          {thresholds &&
-            thresholds?.map((threshold) => (
+          {triggers &&
+            triggers?.map((threshold) => (
               <li key={threshold.id} className="py-4">
                 <div className="flex justify-between items-center">
                   <div className="flex gap-2">
@@ -83,14 +73,6 @@ const ThresholdList = () => {
             ))}
         </ul>
       )}
-
-      
-<div>
-        <button onClick={notify} className="bg-red-500 text-white">Notify!</button>
-        <ToastContainer />
-      </div>
-
-
     </div>
   );
 };

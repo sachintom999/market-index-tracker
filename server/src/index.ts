@@ -27,7 +27,7 @@ app.use("/alerts", alertRoutes);
 let pattern;
 // pattern = `*/55 * * * * *`; // every  55s - for demo
 
-pattern = "0 0 * * *"; // every day at 12am
+pattern = "0 0 * * *"; // every day at 12am-
 
 cron.schedule(pattern, async () => {
   await checkAndSendAlerts();

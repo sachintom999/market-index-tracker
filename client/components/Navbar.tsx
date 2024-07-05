@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 export default function Navbar() {
   const { currentUser, setCurrentUser, username, setUsername } = useAuth();
   const router = useRouter();
-  console.log({ currentUser });
 
   const performLogout = () => {
     handleLogout();

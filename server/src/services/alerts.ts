@@ -22,7 +22,7 @@ export const checkAndSendAlerts = async () => {
     const snapshot = await userRef.get();
 
     if (snapshot.empty) {
-      console.log("No matching documents.");
+      
       return;
     }
 
@@ -47,7 +47,7 @@ export const checkAndSendAlerts = async () => {
             }
 
             const currentPrice = await fetchCurrentPrice(index);
-            console.log({ currentPrice });
+            
 
             if (
               (type === "above" && currentPrice >= parseFloat(value)) ||

@@ -6,10 +6,10 @@ async function getUserData(email: string) {
   const userRef = db.collection("userData").doc(email);
   const doc = await userRef.get();
   if (!doc.exists) {
-    console.log("No such document!🔴");
+    console.log("No such document!");
     return null
   } else {
-    console.log("Document data:", doc.data());
+    
     return doc.data()
   }
 }
@@ -31,9 +31,9 @@ async function addThreshold(email: string, threshold: any) {
   const userRef = db.collection("userData").doc(email);
   const doc = await userRef.get();
   if (!doc.exists) {
-    console.log("No such document!🔴");
+    console.log("No such document!");
   } else {
-    console.log("Document data:", doc.data());
+    
 
     const { index, type, value } = threshold;
     const newThreshold = {
@@ -45,6 +45,13 @@ async function addThreshold(email: string, threshold: any) {
     await userRef.update({
       thresholds: FieldValue.arrayUnion(newThreshold),
     });
+
+    return newThreshold
+  
+  
+  
+  
+  
   }
 }
 

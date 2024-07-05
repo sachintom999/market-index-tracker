@@ -5,11 +5,10 @@ const setThreshold = async (req: Request, res: Response) => {
   try {
     const email = req.user;
     const reqBody = req.body;
-    console.log({ reqBody, email });
 
-    await addThreshold(email, reqBody);
+    const newThreshold = await addThreshold(email, reqBody);
 
-    res.status(200).json({msg:"Threshold set successfully"});
+    res.status(200).json({ msg: "success", data: newThreshold });
   } catch (error) {
     res.status(500).json({ error });
   }
@@ -21,7 +20,6 @@ const getThresholds = async (req: Request, res: Response) => {
   const userData = await getUserData(email);
 
   const indexThresolds = userData?.thresholds.filter((t) => t.index === index);
-  console.log({ indexThresolds });
 
   res.status(200).json({ data: indexThresolds });
 };

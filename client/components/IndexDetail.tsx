@@ -1,11 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import AddThresholdForm from "./AddThresholdForm";
 import ThresholdList from "./ThresholdList";
 import MyDatePicker from "./DatePicker";
 import Link from "next/link";
 import LineChart3 from "./LineChart3";
-import withAuth from "./withAuth";
+
 
 function IndexDetail() {
   return (
@@ -25,4 +25,3 @@ function IndexDetail() {
 }
 
 export default IndexDetail;
-// export default withAuth(IndexDetail)

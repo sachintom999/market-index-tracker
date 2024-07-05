@@ -1,31 +1,32 @@
+import { useMarketData } from "@/contexts/marketData";
 import { auth } from "@/firebase/config";
 import axios from "axios";
 import { useParams } from "next/navigation";
 import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 
 const AddThresholdForm = () => {
+  const { id: index } = useParams();
+  const { setTriggers, triggers } = useMarketData();
 
-  const {id:index} = useParams()
-  
-  const [direction, setDirection] = useState("above"); // Default to 'above'
+  const [direction, setDirection] = useState("above");
   const [thresholdValue, setThresholdValue] = useState("");
+
+  const notify = () => toast("Trigger added !");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission, e.g., submit to Firestore or handle state
-    // console.log("Direction:", direction);
-    // console.log("Threshold Value:", thresholdValue);
 
     const token = await auth.currentUser?.getIdToken();
 
     const axiosConfig = {
       headers: {
-        Authorization: `Bearer ${token}`, // Replace with your authorization token
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     };
 
-    const apiUrl = `${process.env.NEXT_PUBLIC_API_ENDPOINT}/alerts/set-threshold`; // Replace with your API endpoint
+    const apiUrl = `${process.env.NEXT_PUBLIC_API_ENDPOINT}/alerts/set-threshold`;
     const postData = {
       index,
       type: direction,
@@ -35,7 +36,10 @@ const AddThresholdForm = () => {
     axios
       .post(apiUrl, postData, axiosConfig)
       .then((response) => {
-        console.log("Response data:", response.data);
+        const { type, value } = response.data.data;
+
+        setTriggers([...triggers, { type, value }]);
+        notify();
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -48,7 +52,9 @@ const AddThresholdForm = () => {
 
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-gray-200 shadow-md rounded-md">
-      <h2 className="text-lg text-gray-500 font-semibold mb-4">Add price trigger</h2>
+      <h2 className="text-lg text-gray-500 font-semibold mb-4">
+        Add price trigger
+      </h2>
       <form onSubmit={handleSubmit}>
         {/* Dropdown for direction */}
         <div className="mb-4">
@@ -83,7 +89,7 @@ const AddThresholdForm = () => {
             id="thresholdValue"
             name="thresholdValue"
             className="mt-1  text-black block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            placeholder="Enter threshold value"
+            placeholder="Enter trigger value"
             value={thresholdValue}
             onChange={(e) => setThresholdValue(e.target.value)}
             required
@@ -96,10 +102,13 @@ const AddThresholdForm = () => {
             type="submit"
             className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            Add Threshold
+            Add trigger
           </button>
         </div>
       </form>
+      <div>
+        <ToastContainer />
+      </div>
     </div>
   );
 };

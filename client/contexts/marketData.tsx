@@ -4,9 +4,11 @@ const MarketDataContext = createContext<any>({});
 
 export const MarketDataProvider = ({ children }) => {
   const [marketDate, setMarketDate] = useState(getCurrentDate());
+  const [triggers, setTriggers] = useState<any|null>([]);
+  
 
   return (
-    <MarketDataContext.Provider value={{ marketDate, setMarketDate }}>
+    <MarketDataContext.Provider value={{ marketDate, setMarketDate,triggers,setTriggers  }}>
       {children}
     </MarketDataContext.Provider>
   );

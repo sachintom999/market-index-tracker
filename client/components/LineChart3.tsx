@@ -34,7 +34,7 @@ const LineChart3 = () => {
     const fetchIndexData = async (): Promise<any | null> => {
       try {
         const url = `${process.env.NEXT_PUBLIC_POLYGON_BASE_URL}/v2/aggs/ticker/${index}/range/1/hour/${marketDate}/${marketDate}?sort=asc&limit=1000&apiKey=${process.env.NEXT_PUBLIC_POLYGON_API_KEY}`;
-        console.log(url)
+
         const response: AxiosResponse<any> = await axios.get(url);
         setApiData(response.data.results);
       } catch (error) {

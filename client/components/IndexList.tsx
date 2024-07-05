@@ -1,7 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import withAuth from "./withAuth";
 
 function IndexList() {
   const [indices, setIndices] = useState(null);
@@ -13,7 +12,6 @@ function IndexList() {
       try {
         const response: AxiosResponse<any> = await axios.get(url);
         setIndices(response.data.results);
-        
       } catch (error) {
         if (axios.isAxiosError(error)) {
           console.error("Error with Axios request:", error.message);
@@ -51,4 +49,3 @@ function IndexList() {
 }
 
 export default IndexList;
-// export default withAuth(IndexList)
