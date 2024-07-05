@@ -10,8 +10,6 @@ import LineChart3 from "./LineChart3";
 import withAuth from "./withAuth";
 
 function IndexDetail() {
-  // const [marketDate, setMarketDate] = useState(new Date())
-
   return (
     <div className="bg-slate-100 h-screen w-full">
       <Link href={`/dashboard`}>
@@ -19,20 +17,15 @@ function IndexDetail() {
       </Link>
 
       <div className="w-3/4 m-auto">
-        {/* <MyDatePicker marketDate={marketDate} setMarketDate={setMarketDate} /> */}
-
         <MyDatePicker />
-        {/* <LineChart  marketDate={marketDate}   /> */}
         <LineChart3 />
 
-        <ThresholdList/>
+        <ThresholdList />
       </div>
       {/* <AddThresholdForm/> */}
-      
     </div>
   );
 }
 
-
-export default IndexDetail
+export default IndexDetail;
 // export default withAuth(IndexDetail)

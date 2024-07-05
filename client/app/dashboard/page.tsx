@@ -2,16 +2,12 @@
 import IndexList from "@/components/IndexList";
 import withAuth from "@/components/withAuth";
 
-
- function Dashboard() {
+function Dashboard() {
   return (
     <div className="bg-slate-100">
-      
-      
-      <IndexList/>
+      <IndexList />
     </div>
   );
 }
 
-
-export default withAuth(Dashboard)
+export default withAuth(Dashboard);

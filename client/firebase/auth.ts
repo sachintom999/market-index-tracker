@@ -1,15 +1,16 @@
 import {
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,signOut
+  signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 import { auth } from "./config";
 import { useValidateToken } from "@/hooks/validateToken";
-// import { useAuth } from "@/contexts/auth";
 
-
-
-const handleSignUp = async (email: string, password: string,fullName:string) => {
-  
+const handleSignUp = async (
+  email: string,
+  password: string,
+  fullName: string
+) => {
   // const { setCurrentUser } = useAuth();
 
   try {
@@ -19,7 +20,7 @@ const handleSignUp = async (email: string, password: string,fullName:string) => 
     console.log({ token });
 
     if (token) {
-      const response = await useValidateToken(token,fullName);
+      const response = await useValidateToken(token, fullName);
       console.log({ response });
 
       // setCurrentUser(response.user);
@@ -30,8 +31,6 @@ const handleSignUp = async (email: string, password: string,fullName:string) => 
 };
 
 const handleLogin = async (email: string, password: string) => {
-
-  
   await signInWithEmailAndPassword(auth, email, password);
   const token = await auth.currentUser?.getIdToken();
   console.log({ token });
@@ -41,31 +40,23 @@ const handleLogin = async (email: string, password: string) => {
 
     console.log({ response });
 
-    return response
+    return response;
   }
 };
 
-
-
-
-
 const handleLogout = () => {
-
   
-  console.log(123)
 
-  
-  signOut(auth).then(() => {
+  signOut(auth)
+    .then(() => {
       // Sign-out successful.
-      
-      console.log('User signed out successfully.');
-      
-  }).catch((error) => {
+
+      console.log("User signed out successfully.");
+    })
+    .catch((error) => {
       // An error happened.
-      console.error('Error signing out: ', error);
-  });
-}
+      console.error("Error signing out: ", error);
+    });
+};
 
-
-
-export { handleSignUp, handleLogin,handleLogout  };
+export { handleSignUp, handleLogin, handleLogout };

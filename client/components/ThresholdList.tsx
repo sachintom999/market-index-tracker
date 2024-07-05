@@ -18,7 +18,7 @@ const ThresholdList = () => {
 
       const axiosConfig = {
         headers: {
-          Authorization: `Bearer ${token}`, // Replace with your authorization token
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       };
@@ -34,8 +34,7 @@ const ThresholdList = () => {
 
           setThresholds(response.data.data);
 
-          console.log("thresgolds:",thresholds)
-          
+          console.log("thresgolds:", thresholds);
         })
         .catch((error) => {
           console.error("Error:", error);
@@ -43,20 +42,13 @@ const ThresholdList = () => {
     };
 
     fetchThresholds();
-  }, []); // Dependency array ensures this effect runs only once on component mount
+  }, []);
 
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-white shadow-md rounded-md">
       <h2 className="text-lg font-semibold mb-4">Thresholds List</h2>
-      {/* {
-       thresholds.map((t)=> {
 
-        return <p className="text-black">{"123"}</p>
-
-       })
-      } */}
-
-{thresholds.length === 0 ? (
+      {thresholds.length === 0 ? (
         <p className="text-gray-500">No thresholds added yet.</p>
       ) : (
         <ul className="divide-y divide-gray-200">
