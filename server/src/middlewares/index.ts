@@ -11,7 +11,7 @@ export const verifyToken = async (
   if (idToken) {
     try {
       const decodedToken = await admin.auth().verifyIdToken(idToken);
-      console.log(decodedToken.email);
+      console.log("🟢User ",decodedToken.email);
       req.user = decodedToken.email;
 
       next();

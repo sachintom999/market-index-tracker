@@ -1,40 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { Line } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
-import { faker } from '@faker-js/faker'; // Note: Faker is for dummy data
-import { useMarketData } from '@/contexts/marketData';
-
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
-
-const options = {
-  scales: {
-    x: {
-      ticks: {
-        callback: function(value, index, values) {
-          return value; // Assuming labels[index] is defined elsewhere or you can directly return `value`
-        },
-      },
-    },
-    y: {
-      beginAtZero: true,
-      ticks: {
-        callback: function(value, index, values) {
-          return value.toFixed(0);
-        },
-      },
-    },
-  },
-};
-
-// export function LineChart({marketDate}) {
-export function LineChart() {
-
-
-  const {marketDate} = useMarketData()
-
-  console.log("Linechart...... ",marketDate)
-
-  const apiData = {
+export const indexDetailData = {
     ticker: "AAPL",
     queryCount: 5000,
     resultsCount: 1206,
@@ -12107,33 +12071,3 @@ export function LineChart() {
     next_url:
       "https://api.polygon.io/v2/aggs/ticker/AAPL/range/5/minute/1674056100000/2023-02-09?cursor=bGltaXQ9NTAwMCZzb3J0PWFzYw",
   };
-  // State to hold chart data
-  const [chartData, setChartData] = useState({ labels: [], datasets: [] });
-
-  useEffect(() => {
-    // if (apiData && apiData.results) {
-    //   // Transform API data to match chart data format
-    //   const labels = apiData.results.map(result => new Date(result.t).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
-    //   // console.log({labels})
-    //   const data = {
-    //     labels,
-    //     datasets: [
-    //       {
-    //         label: 'Stock Price',
-    //         data: apiData.results.map(result => result.c),
-    //         borderColor: 'rgb(53, 162, 235)',
-    //         backgroundColor: 'rgba(53, 162, 235, 0.5)',
-    //       },
-    //     ],
-    //   };
-    //   setChartData(data);
-    // }
-
-    console.log(`calling api with ${marketDate}`)
-
-
-
-  }, [marketDate]);
-
-  return <Line options={options} data={chartData} />;
-}

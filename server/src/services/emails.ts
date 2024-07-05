@@ -1,5 +1,6 @@
 const nodemailer = require("nodemailer");
 
+
 export const sendEmailNotification = (
   recipient: string,
   index: string,

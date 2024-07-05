@@ -8,18 +8,18 @@ import { useValidateToken } from "@/hooks/validateToken";
 
 
 
-const handleSignUp = async (email: string, password: string) => {
+const handleSignUp = async (email: string, password: string,fullName:string) => {
   
   // const { setCurrentUser } = useAuth();
 
   try {
-    const res = await createUserWithEmailAndPassword(auth, email, password);
+    await createUserWithEmailAndPassword(auth, email, password);
 
     const token = await auth.currentUser?.getIdToken();
     console.log({ token });
 
     if (token) {
-      const response = await useValidateToken(token);
+      const response = await useValidateToken(token,fullName);
       console.log({ response });
 
       // setCurrentUser(response.user);

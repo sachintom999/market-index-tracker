@@ -1,39 +1,38 @@
-import React from 'react'
-import LineChart from './LineChart'
-import { LineChart2 } from './LineChart2'
+"use client";
+import React, { useState } from "react";
+import { LineChart } from "./LineChart";
+import AddThresholdForm from "./AddThresholdForm";
+import ThresholdList from "./ThresholdList";
+import MyDatePicker from "./DatePicker";
+import { useMarketData } from "@/contexts/marketData";
+import Link from "next/link";
+import LineChart3 from "./LineChart3";
+import withAuth from "./withAuth";
 
-export default function IndexDetail() {
-
-  const data = {
-    "request_id": "9ace7a0989b939a3075125e232537166",
-    "results": {
-        "ticker": "CBND",
-        "name": "SPDR SER TR BARCLAYS ISSUER SCORED CORP BD",
-        "market": "stocks",
-        "locale": "us",
-        "primary_exchange": "ARCX",
-        "type": "INDEX",
-        "active": true,
-        "currency_name": "usd",
-        "cik": "0001064642",
-        "composite_figi": "BBG001M534W4",
-        "share_class_figi": "BBG001V10544",
-        "ticker_root": "CBND",
-        "share_class_shares_outstanding": 900000,
-        "round_lot": 100
-    },
-    "status": "OK"
-}
-
+function IndexDetail() {
+  // const [marketDate, setMarketDate] = useState(new Date())
 
   return (
-    <div>
+    <div className="bg-slate-100 h-screen w-full">
+      <Link href={`/dashboard`}>
+        <p className="text-blue-600 text-sm">Back</p>
+      </Link>
 
+      <div className="w-3/4 m-auto">
+        {/* <MyDatePicker marketDate={marketDate} setMarketDate={setMarketDate} /> */}
+
+        <MyDatePicker />
+        {/* <LineChart  marketDate={marketDate}   /> */}
+        <LineChart3 />
+
+        <ThresholdList/>
+      </div>
+      {/* <AddThresholdForm/> */}
       
-
-      <LineChart2  />
-
-
     </div>
-  )
+  );
 }
+
+
+// export default IndexDetail
+export default withAuth(IndexDetail)

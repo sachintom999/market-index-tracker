@@ -2,108 +2,78 @@ import express from "express";
 import { verifyToken } from "./middlewares";
 import cors from "cors";
 import { getFirestore } from "firebase-admin/firestore";
-import { sendEmailNotification } from "./services/emails";
+import { addThreshold, addUserData, getUserData } from "./db";
+import axios from "axios";
 
-require('dotenv').config()
+import { alertRoutes, authRoutes } from "./routes";
+import { setThreshold } from "./controllers/alertsController";
 
-
-
+require("dotenv").config();
 
 const app = express();
-const cron = require('node-cron');
-
-
-app.use(cors());
+const cron = require("node-cron");
 
 export const admin = require("firebase-admin");
-
 const serviceAccount = require("../test-auth-app-key.json");
-
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
 
-const db = getFirestore();
+export const db = getFirestore();
 
-app.get("/", verifyToken, (req, res) => {
-  console.log("get...");
-  res.json({ msg: "get...", user: req.user });
-});
+app.use(cors());
+app.use(express.json());
 
-app.post("/", verifyToken, (req, res) => {
-  console.log("post...");
-  res.json({ msg: "post..." });
-});
-
-app.post("/authenticate", verifyToken, async (req, res) => {
-  console.log("post...");
-
-  // sendEmailNotification("spamsachintom@gmail.com","AAPL","122")
+app.use("/auth", authRoutes);
+app.use("/alerts", alertRoutes);
 
 
-  const snapshot = await db
-    .collection("users")
-    .where("email", "==", req.user)
-    .get();
-  if (!snapshot.empty) {
-    console.log(44);
 
-    const userRecord = snapshot.docs[0].data();
-    console.log({ userRecord });
-    const { firstName } = userRecord;
-  } else {
-    console.log(48);
 
-    const newUser = {
-      email: req.user,
-      firstName: "John ",
-      lastName: "Doe",
-    };
+app.post("/set-threshold", verifyToken, setThreshold);
 
-    await db.collection("users").add(newUser);
-  }
 
-  res.json({ msg: "post...", user: req.user });
-});
 
-app.post("/set-threshold", verifyToken, async (req, res) => {
-  console.log(req.body);
+app.post("/test", verifyToken, async (req, res) => {
+  // await addUserData("2@gmail.com","22")
+  // await addThreshold("1@gmail.com", {index:"META",type:"below",value:"11000"})
+  // await getUserData("122@gmail.com")
+  // await qq()
 
-  try {
-    const snapshot = await db
-      .collection("users")
-      .where("email", "==", req.user)
-      .get();
+  // const url = `https://api.polygon.io/v2/aggs/ticker/META/prev?adjusted=true&apiKey=LrX76XnH3BijtRSlMcg9UTZ5l9AKhPtt`;
 
-    if (!snapshot.empty) {
-      console.log(44);
+  // axios.get(url).then((response) => {
+  //   const currentPrice = response.data.results[0].c;
+  //   console.log({ currentPrice });
+  // });
 
-      const userDocRef = snapshot.docs[0].id;
-      console.log({ userDocRef });
+  // const response = await axios.get(url)
+  // const data = response.data.results[0].c
+  // console.log({data})
+  const email = req.user;
+  console.log({email})
+  const qq = await getUserData(email)
+  console.log({qq})
 
-      const userRef = db.collection("users").doc(userDocRef);
-      console.log({ userRef });
+  const {thresholds} = qq
+  console.log({thresholds})
+  const indexThresolds = thresholds.filter(t => t.index === 'ITC')
+  console.log({indexThresolds})
 
-      const newThreshold = {
-        index: "AAPL",
-        threshold: "100",
-        user: userRef,
-      };
-
-      await db.collection("thresholds").add(newThreshold);
-    }
-
-    res.status(200).send("Threshold set successfully");
-  } catch (error) {
-    res.status(500).json({ error });
-  }
+  res.json({ msg: "success" });
 });
 
 
-cron.schedule('0 0 * * *', () => {
-  
+
+
+
+cron.schedule("0 0 * * *", () => {
   // checkAndSendAlerts();
 });
+
+
+
+
 
 app.listen(4000, () => {
   console.log(`listening on 4000 ✅`);

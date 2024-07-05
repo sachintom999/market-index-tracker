@@ -1,445 +1,810 @@
 import axios, { AxiosResponse } from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import withAuth from "./withAuth";
 
-export default function IndexList() {
+ function IndexList() {
   const [indices, setIndices] = useState(null);
 
+
+
   const indexData = 
-     [
+   [
         {
-            "ticker": "ACIM",
-            "name": "SPDR MSCI ACWI IMI ETF",
-            "market": "stocks",
+            "ticker": "I:A1BSC",
+            "name": "Dow Jones Americas Basic Materials Index",
+            "market": "indices",
             "locale": "us",
-            "primary_exchange": "ARCX",
-            "type": "INDEX",
             "active": true,
-            "currency_name": "usd",
-            "cik": "0001168164",
-            "composite_figi": "BBG002PKWJJ6",
-            "share_class_figi": "BBG002PKWK85",
-            "last_updated_utc": "2016-05-18T00:00:00Z"
+            "source_feed": "CMEMarketDataPlatformDowJones"
         },
         {
-            "ticker": "ACWF",
-            "name": "ISHRES TR EDGE MSCI MULTIFACTOR GLOBAL ETF",
-            "market": "stocks",
+            "ticker": "I:A1CYC",
+            "name": "Dow Jones Americas Consumer Services Index",
+            "market": "indices",
             "locale": "us",
-            "primary_exchange": "ARCX",
-            "type": "INDEX",
             "active": true,
-            "currency_name": "usd",
-            "cik": "0001100663",
-            "composite_figi": "BBG008LNZHV8",
-            "share_class_figi": "BBG008LNZHW7",
-            "last_updated_utc": "2016-05-18T00:00:00Z"
+            "source_feed": "CMEMarketDataPlatformDowJones"
         },
         {
-            "ticker": "BNDS",
-            "name": "SPDRS BARCLAYS AGGREGATE BD ETF",
-            "market": "stocks",
+            "ticker": "I:A1DOW",
+            "name": "Dow Jones Americas Index",
+            "market": "indices",
             "locale": "us",
-            "primary_exchange": "ARCX",
-            "type": "INDEX",
             "active": true,
-            "currency_name": "usd",
-            "cik": "0001064642",
-            "composite_figi": "BBG000RFSB92",
-            "share_class_figi": "BBG001STKD11",
-            "last_updated_utc": "2016-05-18T00:00:00Z"
+            "source_feed": "CMEMarketDataPlatformDowJones"
         },
         {
-            "ticker": "CBND",
-            "name": "SPDR SER TR BARCLAYS ISSUER SCORED CORP BD",
-            "market": "stocks",
+            "ticker": "I:A1ENE",
+            "name": "Dow Jones Americas Oil & Gas Index",
+            "market": "indices",
             "locale": "us",
-            "primary_exchange": "ARCX",
-            "type": "INDEX",
             "active": true,
-            "currency_name": "usd",
-            "cik": "0001064642",
-            "composite_figi": "BBG001M534W4",
-            "share_class_figi": "BBG001V10544",
-            "last_updated_utc": "2016-05-18T00:00:00Z"
+            "source_feed": "CMEMarketDataPlatformDowJones"
         },
         {
-            "ticker": "CIU",
-            "name": "ISHARES TR  INTERMEDIATE CR BD ETF",
-            "market": "stocks",
+            "ticker": "I:A1FIN",
+            "name": "Dow Jones Americas Financials Index",
+            "market": "indices",
             "locale": "us",
-            "primary_exchange": "ARCX",
-            "type": "INDEX",
             "active": true,
-            "currency_name": "usd",
-            "cik": "0000930667",
-            "composite_figi": "BBG000QN1YR5",
-            "share_class_figi": "BBG001SSD849",
-            "last_updated_utc": "2016-05-18T00:00:00Z"
+            "source_feed": "CMEMarketDataPlatformDowJones"
         },
         {
-            "ticker": "CJNK",
-            "name": "SPDR SER TR BOFA M.L. CROSSOVER CORP BD ETF",
-            "market": "stocks",
+            "ticker": "I:A1HCR",
+            "name": "Dow Jones Americas Health Care Index",
+            "market": "indices",
             "locale": "us",
-            "primary_exchange": "ARCX",
-            "type": "INDEX",
             "active": true,
-            "currency_name": "usd",
-            "composite_figi": "BBG0034VNB73",
-            "share_class_figi": "BBG0034VNBZ2",
-            "last_updated_utc": "2016-05-18T00:00:00Z"
+            "source_feed": "CMEMarketDataPlatformDowJones"
         },
         {
-            "ticker": "CLY",
-            "name": "ISHARES TR 10+ YR CR BD ETF",
-            "market": "stocks",
+            "ticker": "I:A1IDU",
+            "name": "Dow Jones Americas Industrials Index",
+            "market": "indices",
             "locale": "us",
-            "primary_exchange": "ARCX",
-            "type": "INDEX",
             "active": true,
-            "currency_name": "usd",
-            "cik": "0000913414",
-            "composite_figi": "BBG000PGKK27",
-            "share_class_figi": "BBG001T5MKD1",
-            "last_updated_utc": "2016-05-18T00:00:00Z"
+            "source_feed": "CMEMarketDataPlatformDowJones"
         },
         {
-            "ticker": "CLYH",
-            "name": "ISHARES U S TR INT RATE HEDGED 10+ YR CR BD ETF (DE)",
-            "market": "stocks",
+            "ticker": "I:A1NCY",
+            "name": "Dow Jones Americas Consumer Goods Index",
+            "market": "indices",
             "locale": "us",
-            "primary_exchange": "ARCX",
-            "type": "INDEX",
             "active": true,
-            "currency_name": "usd",
-            "cik": "0001100663",
-            "composite_figi": "BBG009NLX3P8",
-            "share_class_figi": "BBG009NLX3N0",
-            "last_updated_utc": "2016-05-18T00:00:00Z"
+            "source_feed": "CMEMarketDataPlatformDowJones"
         },
         {
-            "ticker": "CSJ",
-            "name": "ISHARES BARCLAYS 1-3 YR CD BD ETF",
-            "market": "stocks",
+            "ticker": "I:A1SGI",
+            "name": "Dow Jones Sustainability North America Composite Index (USD)",
+            "market": "indices",
             "locale": "us",
-            "primary_exchange": "ARCX",
-            "type": "INDEX",
             "active": true,
-            "currency_name": "usd",
-            "cik": "0000893818",
-            "composite_figi": "BBG000QN2BW8",
-            "share_class_figi": "BBG001SSD858",
-            "last_updated_utc": "2016-05-18T00:00:00Z"
+            "source_feed": "CMEMarketDataPlatformDowJones"
         },
         {
-            "ticker": "DBAP",
-            "name": "DEUTSCHE X-TRACKERS MSCI ASIA PAC EX JAPAN HEDGED EQTY ETF",
-            "market": "stocks",
+            "ticker": "I:A1TEC",
+            "name": "Dow Jones Americas Technology Index",
+            "market": "indices",
             "locale": "us",
-            "primary_exchange": "ARCX",
-            "type": "INDEX",
             "active": true,
-            "currency_name": "usd",
-            "cik": "0001503123",
-            "composite_figi": "BBG005BJ0T82",
-            "share_class_figi": "BBG005BJ0T91",
-            "last_updated_utc": "2016-05-18T00:00:00Z"
+            "source_feed": "CMEMarketDataPlatformDowJones"
         },
         {
-            "ticker": "DRW",
-            "name": "WISDOMTREE GLOBAL EX-US REAL ESTATE FND (DE)",
-            "market": "stocks",
+            "ticker": "I:A1TLS",
+            "name": "Dow Jones Americas Telecommunications Index",
+            "market": "indices",
             "locale": "us",
-            "primary_exchange": "ARCX",
-            "type": "INDEX",
             "active": true,
-            "currency_name": "usd",
-            "cik": "0001350487",
-            "composite_figi": "BBG000RDDFT2",
-            "share_class_figi": "BBG001STHBJ0",
-            "last_updated_utc": "2016-05-18T00:00:00Z"
+            "source_feed": "CMEMarketDataPlatformDowJones"
         },
         {
-            "ticker": "EZY",
-            "name": "WISDOMTREE LARGECAP VALUE FUND",
-            "market": "stocks",
+            "ticker": "I:A1UTI",
+            "name": "Dow Jones Americas Utilities Index",
+            "market": "indices",
             "locale": "us",
-            "primary_exchange": "ARCX",
-            "type": "INDEX",
             "active": true,
-            "currency_name": "usd",
-            "cik": "0001350487",
-            "composite_figi": "BBG000R1SHP2",
-            "share_class_figi": "BBG001SSZBN7",
-            "last_updated_utc": "2016-05-18T00:00:00Z"
+            "source_feed": "CMEMarketDataPlatformDowJones"
         },
         {
-            "ticker": "FEU",
-            "name": "SPDR STOXX EURO 50 ETF",
-            "market": "stocks",
+            "ticker": "I:AAVE100",
+            "name": "Cboe 100 Aave / US Dollar RealPrice Index",
+            "market": "indices",
             "locale": "us",
-            "primary_exchange": "ARCX",
-            "type": "INDEX",
             "active": true,
-            "currency_name": "usd",
-            "cik": "0001168164",
-            "composite_figi": "BBG000PG8LL8",
-            "share_class_figi": "BBG001SLBKJ3",
-            "last_updated_utc": "2016-05-18T00:00:00Z"
+            "source_feed": "CboeGlobalIndicesCCCY"
         },
         {
-            "ticker": "FLM",
-            "name": "FIRST TRUST ISE GLOBAL ENGINEERING & CONSTRUCTION INDEX FUND",
-            "market": "stocks",
+            "ticker": "I:AAVE10RP",
+            "name": "Cboe 10 Aave / US Dollar RealPrice Index",
+            "market": "indices",
             "locale": "us",
-            "primary_exchange": "ARCX",
-            "type": "INDEX",
             "active": true,
-            "currency_name": "usd",
-            "composite_figi": "BBG000BK21J7",
-            "share_class_figi": "BBG001SMNHG8",
-            "last_updated_utc": "2016-05-18T00:00:00Z"
+            "source_feed": "CboeGlobalIndicesCCCY"
         },
         {
-            "ticker": "FTY",
-            "name": "ISHARES TR  REAL ESTATE 50 ETF",
-            "market": "stocks",
+            "ticker": "I:AAVE25RP",
+            "name": "Cboe 25 Aave / US Dollar RealPrice Index",
+            "market": "indices",
             "locale": "us",
-            "primary_exchange": "ARCX",
-            "type": "INDEX",
             "active": true,
-            "currency_name": "usd",
-            "cik": "0000930667",
-            "composite_figi": "BBG000R72F62",
-            "share_class_figi": "BBG001ST7G55",
-            "last_updated_utc": "2016-05-18T00:00:00Z"
+            "source_feed": "CboeGlobalIndicesCCCY"
         },
         {
-            "ticker": "GEX",
-            "name": "VANECK VECTORS GLOBAL ALTERNATIVE ENERGY ETF",
-            "market": "stocks",
+            "ticker": "I:AAVE400",
+            "name": "Cboe 400 Aave / US Dollar RealPrice Index",
+            "market": "indices",
             "locale": "us",
-            "primary_exchange": "ARCX",
-            "type": "INDEX",
             "active": true,
-            "currency_name": "usd",
-            "composite_figi": "BBG000R18YM0",
-            "share_class_figi": "BBG001SSYS60",
-            "last_updated_utc": "2016-05-18T00:00:00Z"
+            "source_feed": "CboeGlobalIndicesCCCY"
         },
         {
-            "ticker": "GLDX",
-            "name": "GLOBAL X GOLD EXPLORERS ETF",
-            "market": "stocks",
+            "ticker": "I:AAVE50RP",
+            "name": "Cboe 50 Aave / US Dollar RealPrice Index",
+            "market": "indices",
             "locale": "us",
-            "primary_exchange": "ARCX",
-            "type": "INDEX",
             "active": true,
-            "currency_name": "usd",
-            "composite_figi": "BBG0018HBWX2",
-            "share_class_figi": "BBG001TF8DG8",
-            "last_updated_utc": "2016-05-18T00:00:00Z"
+            "source_feed": "CboeGlobalIndicesCCCY"
         },
         {
-            "ticker": "GWL",
-            "name": "SPDR SER TR FDS SPDR S&P WORLD EX-US ETF",
-            "market": "stocks",
+            "ticker": "I:ABAQ",
+            "name": "ABA NASDAQ Community Bank",
+            "market": "indices",
             "locale": "us",
-            "primary_exchange": "ARCX",
-            "type": "INDEX",
             "active": true,
-            "currency_name": "usd",
-            "cik": "0001168164",
-            "composite_figi": "BBG000Q8SV13",
-            "share_class_figi": "BBG001SRXRJ1",
-            "last_updated_utc": "2016-05-18T00:00:00Z"
+            "source_feed": "NasdaqGIDS"
         },
         {
-            "ticker": "GXF",
-            "name": "GLOBAL X FTSE NORDIC REGION ETF",
-            "market": "stocks",
+            "ticker": "I:ABQI",
+            "name": "NASDAQ OMX ABA Community Bank",
+            "market": "indices",
             "locale": "us",
-            "primary_exchange": "ARCX",
-            "type": "INDEX",
             "active": true,
-            "currency_name": "usd",
-            "cik": "0001432353",
-            "composite_figi": "BBG000NV40T9",
-            "share_class_figi": "BBG001T5BNG4",
-            "last_updated_utc": "2016-05-18T00:00:00Z"
+            "source_feed": "NasdaqGIDS"
         },
         {
-            "ticker": "IPE",
-            "name": "SPDR BARCLAYS TIPS ETF",
-            "market": "stocks",
+            "ticker": "I:ABQX",
+            "name": "NASDAQ OMX ABA Community Bank Total Rtn",
+            "market": "indices",
             "locale": "us",
-            "primary_exchange": "ARCX",
-            "type": "INDEX",
             "active": true,
-            "currency_name": "usd",
-            "cik": "0001064642",
-            "composite_figi": "BBG000RFRRV3",
-            "share_class_figi": "BBG001STKCZ6",
-            "last_updated_utc": "2016-05-18T00:00:00Z"
+            "source_feed": "NasdaqGIDS"
         },
         {
-            "ticker": "ITE",
-            "name": "SPDR BARCLAYS INTER TERM TREAS ETF",
-            "market": "stocks",
+            "ticker": "I:ADA100K",
+            "name": "Cboe 100K Cardano / US Dollar RealPrice Index",
+            "market": "indices",
             "locale": "us",
-            "primary_exchange": "ARCX",
-            "type": "INDEX",
             "active": true,
-            "currency_name": "usd",
-            "cik": "0001064642",
-            "composite_figi": "BBG000RFR2N7",
-            "share_class_figi": "BBG001STKCX8",
-            "last_updated_utc": "2016-05-18T00:00:00Z"
+            "source_feed": "CboeGlobalIndicesCCCY"
         },
         {
-            "ticker": "ITR",
-            "name": "SPDR SER TR BARCLAYS INTERMEDIATE TERM CORP BOND ETF",
-            "market": "stocks",
+            "ticker": "I:ADA10KRP",
+            "name": "Cboe 10K Cardano / US Dollar RealPrice Index",
+            "market": "indices",
             "locale": "us",
-            "primary_exchange": "ARCX",
-            "type": "INDEX",
             "active": true,
-            "currency_name": "usd",
-            "cik": "0001064642",
-            "composite_figi": "BBG000F8Y230",
-            "share_class_figi": "BBG001T2HCY9",
-            "last_updated_utc": "2016-05-18T00:00:00Z"
+            "source_feed": "CboeGlobalIndicesCCCY"
         },
         {
-            "ticker": "KLD",
-            "name": "ISHARES MSCI USA ESG SELECT SOCIAL ETF",
-            "market": "stocks",
+            "ticker": "I:ADA25KRP",
+            "name": "Cboe 25K Cardano / US Dollar RealPrice Index",
+            "market": "indices",
             "locale": "us",
-            "primary_exchange": "ARCX",
-            "type": "INDEX",
             "active": true,
-            "currency_name": "usd",
-            "cik": "0001006249",
-            "composite_figi": "BBG000QN82F1",
-            "share_class_figi": "BBG001SN86J4",
-            "last_updated_utc": "2016-05-18T00:00:00Z"
+            "source_feed": "CboeGlobalIndicesCCCY"
         },
         {
-            "ticker": "LOWC",
-            "name": "SPDR INDEX SHS FDS SPDR MSCI  ACWI LOW CARBON TARGET ETF",
-            "market": "stocks",
+            "ticker": "I:ADA50KRP",
+            "name": "Cboe 50K Cardano / US Dollar RealPrice Index",
+            "market": "indices",
             "locale": "us",
-            "primary_exchange": "ARCX",
-            "type": "INDEX",
             "active": true,
-            "currency_name": "usd",
-            "cik": "0001168164",
-            "composite_figi": "BBG007LP6QN6",
-            "share_class_figi": "BBG007LP6Q83",
-            "last_updated_utc": "2016-05-18T00:00:00Z"
+            "source_feed": "CboeGlobalIndicesCCCY"
         },
         {
-            "ticker": "LWC",
-            "name": "SPDR SER TR BARCLAYS LONG TERM CORP BOND ETF",
-            "market": "stocks",
+            "ticker": "I:ADA5KRP",
+            "name": "Cboe 5000 Cardano / US Dollar RealPrice Index",
+            "market": "indices",
             "locale": "us",
-            "primary_exchange": "ARCX",
-            "type": "INDEX",
             "active": true,
-            "currency_name": "usd",
-            "cik": "0001168164",
-            "composite_figi": "BBG000BSXL57",
-            "share_class_figi": "BBG001SRZBZ6",
-            "last_updated_utc": "2016-05-18T00:00:00Z"
+            "source_feed": "CboeGlobalIndicesCCCY"
         },
         {
-            "ticker": "MTK",
-            "name": "SPDR MORGAN STANLEY TECHNOLOGY ETF",
-            "market": "stocks",
+            "ticker": "I:ADOW",
+            "name": "The Asia Dow (USD)",
+            "market": "indices",
             "locale": "us",
-            "primary_exchange": "ARCX",
-            "type": "INDEX",
             "active": true,
-            "currency_name": "usd",
-            "cik": "0001064642",
-            "composite_figi": "BBG000C9R1B2",
-            "share_class_figi": "BBG001SG42D8",
-            "last_updated_utc": "2016-05-18T00:00:00Z"
+            "source_feed": "CMEMarketDataPlatformDowJones"
         },
         {
-            "ticker": "ONEK",
-            "name": "SPDR RUSSELL 1000 ETF",
-            "market": "stocks",
+            "ticker": "I:ADOWA",
+            "name": "The Asia Dow (AUD)",
+            "market": "indices",
             "locale": "us",
-            "primary_exchange": "ARCX",
-            "type": "INDEX",
             "active": true,
-            "currency_name": "usd",
-            "cik": "0001064642",
-            "composite_figi": "BBG000KMT5K3",
-            "share_class_figi": "BBG001SPTB87",
-            "last_updated_utc": "2016-05-18T00:00:00Z"
+            "source_feed": "CMEMarketDataPlatformDowJones"
         },
         {
-            "ticker": "ROGS",
-            "name": "LATTICE STRATEGIES TR GLOBAL SMALL CAP STRATEGY ETF",
-            "market": "stocks",
+            "ticker": "I:ADOWE",
+            "name": "The Asia Dow (EUR)",
+            "market": "indices",
             "locale": "us",
-            "primary_exchange": "ARCX",
-            "type": "INDEX",
             "active": true,
-            "currency_name": "usd",
-            "composite_figi": "BBG0089X2QF4",
-            "share_class_figi": "BBG0089X2QD6",
-            "last_updated_utc": "2016-05-18T00:00:00Z"
+            "source_feed": "CMEMarketDataPlatformDowJones"
         },
         {
-            "ticker": "RSCO",
-            "name": "SPDR RUSSELL SMALL CAP COMPLETENESS ETF",
-            "market": "stocks",
+            "ticker": "I:ADOWJ",
+            "name": "The Asia Dow (JPY)",
+            "market": "indices",
             "locale": "us",
-            "primary_exchange": "ARCX",
-            "type": "INDEX",
             "active": true,
-            "currency_name": "usd",
-            "cik": "0001064642",
-            "composite_figi": "BBG000KMBFP5",
-            "share_class_figi": "BBG001SPT9T9",
-            "last_updated_utc": "2016-05-18T00:00:00Z"
+            "source_feed": "CMEMarketDataPlatformDowJones"
         },
         {
-            "ticker": "SCPB",
-            "name": "SPDR SER BARCLAYS CAP SHT TERM CORP BOND ETF",
-            "market": "stocks",
+            "ticker": "I:AGQIV",
+            "name": "PROSHARES ULTRA SILVER ETF",
+            "market": "indices",
             "locale": "us",
-            "primary_exchange": "ARCX",
-            "type": "INDEX",
             "active": true,
-            "currency_name": "usd",
-            "cik": "0001064642",
-            "composite_figi": "BBG000Q1MZ15",
-            "share_class_figi": "BBG001T6B0P2",
-            "last_updated_utc": "2016-05-18T00:00:00Z"
+            "source_feed": "CboeGlobalIndicesINAV"
         },
         {
-            "ticker": "WDTI",
-            "name": "WISDOMTREE TR MANAGED FUTURES STRATEGY FD",
-            "market": "stocks",
+            "ticker": "I:ALGO100",
+            "name": "Cboe 100 Algorand / US Dollar RealPrice Index",
+            "market": "indices",
             "locale": "us",
-            "primary_exchange": "ARCX",
-            "type": "INDEX",
             "active": true,
-            "currency_name": "usd",
-            "cik": "0001350487",
-            "composite_figi": "BBG001CSJZ68",
-            "share_class_figi": "BBG001V038F5",
-            "last_updated_utc": "2016-05-18T00:00:00Z"
-        
-    
- 
-}
-     ]
+            "source_feed": "CboeGlobalIndicesCCCY"
+        },
+        {
+            "ticker": "I:ALGO1KRP",
+            "name": "Cboe 1000 Algorand / US Dollar RealPrice Index",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesCCCY"
+        },
+        {
+            "ticker": "I:ALGO5KRP",
+            "name": "Cboe 5000 Algorand / US Dollar RealPrice Index",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesCCCY"
+        },
+        {
+            "ticker": "I:AMBOR1M",
+            "name": "AMERIBOR 1 Month Spot Rate",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesMain"
+        },
+        {
+            "ticker": "I:AMBOR1W",
+            "name": "AMERIBOR 1 Week Spot Rate",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesMain"
+        },
+        {
+            "ticker": "I:AMBOR1Y",
+            "name": "AMERIBOR 1 Year Spot Rate",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesMain"
+        },
+        {
+            "ticker": "I:AMBOR2Y",
+            "name": "AMERIBOR 2 Year Spot Rate",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesMain"
+        },
+        {
+            "ticker": "I:AMBOR30",
+            "name": "30 Day Average AMERIBOR Rate",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesMain"
+        },
+        {
+            "ticker": "I:AMBOR30T",
+            "name": "AMERIBOR Term-30 Rate",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesMain"
+        },
+        {
+            "ticker": "I:AMBOR3M",
+            "name": "AMERIBOR 3 Month Spot Rate",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesMain"
+        },
+        {
+            "ticker": "I:AMBOR6M",
+            "name": "AMERIBOR 6 Month Spot Rate",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesMain"
+        },
+        {
+            "ticker": "I:AMBOR90",
+            "name": "90 Day Average AMERIBOR Rate",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesMain"
+        },
+        {
+            "ticker": "I:AMBOR90T",
+            "name": "AMERIBOR Term-90 Rate",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesMain"
+        },
+        {
+            "ticker": "I:AMBOS",
+            "name": "One Month AMERIBOR Average Settlement",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesMain"
+        },
+        {
+            "ticker": "I:AMBOX",
+            "name": "One Month AMERIBOR Average Rate",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesMain"
+        },
+        {
+            "ticker": "I:AMBRS",
+            "name": "14 Day AMERIBOR Average Settlement",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesMain"
+        },
+        {
+            "ticker": "I:AMBRX",
+            "name": "14 Day AMERIBOR Average Rate",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesMain"
+        },
+        {
+            "ticker": "I:AMBTS",
+            "name": "Three Month AMERIBOR Compound Average Settlement",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesMain"
+        },
+        {
+            "ticker": "I:AMBTX",
+            "name": "Three Month AMERIBOR Compound Average Rate",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesMain"
+        },
+        {
+            "ticker": "I:AMBWS",
+            "name": "7 Day AMERIBOR Average Settlement",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesMain"
+        },
+        {
+            "ticker": "I:AMBWX",
+            "name": "7 Day AMERIBOR Average Rate",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesMain"
+        },
+        {
+            "ticker": "I:AMERIBOR",
+            "name": "AMERIBOR Unsecured Overnight Rate",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesMain"
+        },
+        {
+            "ticker": "I:AMT1M",
+            "name": "AMERIBOR Term-30 Rate",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesMain"
+        },
+        {
+            "ticker": "I:AMT1R",
+            "name": "Ameribor 30 Day Term Settlement Rate",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesMain"
+        },
+        {
+            "ticker": "I:AMT1S",
+            "name": "Ameribor 30 Day Term Settlement Value",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesMain"
+        },
+        {
+            "ticker": "I:AMT3M",
+            "name": "AMERIBOR Term-90 Rate",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesMain"
+        },
+        {
+            "ticker": "I:AMT3R",
+            "name": "Ameribor 90 Day Term Settlement Rate",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesMain"
+        },
+        {
+            "ticker": "I:AMT3S",
+            "name": "Ameribor 90 Day Term Settlement Value",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesMain"
+        },
+        {
+            "ticker": "I:ANEWIV",
+            "name": "PROSHARES MSCI TRANSFORMATIONAL CHANGES ETF",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesINAV"
+        },
+        {
+            "ticker": "I:APRTIV",
+            "name": "AllianzIM U.S. Large Cap Buffer10 Apr ETF Intraday Indicative Value",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesINAV"
+        },
+        {
+            "ticker": "I:APRWIV",
+            "name": "AllianzIM U.S. Large Cap Buffer20 Apr ETF Intraday Indicative Value",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesINAV"
+        },
+        {
+            "ticker": "I:APRZIV",
+            "name": "TrueShares Structured Outcome (April) ETF Intraday Indicative Value",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesINAV"
+        },
+        {
+            "ticker": "I:ATDOW",
+            "name": "Dow Jones Austria Index",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CMEMarketDataPlatformDowJones"
+        },
+        {
+            "ticker": "I:ATDOWD",
+            "name": "Dow Jones Austria Index (USD)",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CMEMarketDataPlatformDowJones"
+        },
+        {
+            "ticker": "I:ATOM150",
+            "name": "Cboe 150 Cosmos / US Dollar RealPrice Index",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesCCCY"
+        },
+        {
+            "ticker": "I:ATOM300",
+            "name": "Cboe 300 Cosmos / US Dollar RealPrice Index",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesCCCY"
+        },
+        {
+            "ticker": "I:ATOM600",
+            "name": "Cboe 600 Cosmos / US Dollar RealPrice Index",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesCCCY"
+        },
+        {
+            "ticker": "I:ATOM75RP",
+            "name": "Cboe 75 Cosmos / US Dollar RealPrice Index",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesCCCY"
+        },
+        {
+            "ticker": "I:AUAC",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "NasdaqGIDS"
+        },
+        {
+            "ticker": "I:AUACGL",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "NasdaqGIDS"
+        },
+        {
+            "ticker": "I:AUACT",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "NasdaqGIDS"
+        },
+        {
+            "ticker": "I:AUDOWD",
+            "name": "Dow Jones Australia Index (USD)",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CMEMarketDataPlatformDowJones"
+        },
+        {
+            "ticker": "I:AUGTIV",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesINAV"
+        },
+        {
+            "ticker": "I:AUGWIV",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesINAV"
+        },
+        {
+            "ticker": "I:AUGZIV",
+            "name": "TrueShares Structured Outcome (August) ETF Intraday Indicative Value",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesINAV"
+        },
+        {
+            "ticker": "I:AVCHQYLD",
+            "name": "Alpha Vee Quality Yield",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesMain"
+        },
+        {
+            "ticker": "I:AVGRNTSP",
+            "name": "Alpha Vee Green Transportation",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesMain"
+        },
+        {
+            "ticker": "I:AVRMENEQ",
+            "name": "Alpha Vee Risk Managed Enhanced US Equity",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesMain"
+        },
+        {
+            "ticker": "I:AVT5EQTB",
+            "name": "Alpha Vee Risk Managed Top 5 Sector Equities & Treasury Bonds",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesMain"
+        },
+        {
+            "ticker": "I:AVT5ETTB",
+            "name": "Alpha Vee Risk Managed Top 5 Sector ETFs & Treasuries",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesMain"
+        },
+        {
+            "ticker": "I:AVT5SMAL",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesMain"
+        },
+        {
+            "ticker": "I:AVT5SMID",
+            "name": "Alpha Vee Risk Managed SMID Top 5 Sector Equities",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesMain"
+        },
+        {
+            "ticker": "I:AVUSMEGA",
+            "name": "Alpha Vee US Mega Cap",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "CboeGlobalIndicesMain"
+        },
+        {
+            "ticker": "I:B10GI",
+            "name": "OMX Baltic Technology GI",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "NasdaqGIDS"
+        },
+        {
+            "ticker": "I:B10PI",
+            "name": "OMX Baltic Technology PI",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "NasdaqGIDS"
+        },
+        {
+            "ticker": "I:B15GI",
+            "name": "OMX Baltic Telecommunications GI",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "NasdaqGIDS"
+        },
+        {
+            "ticker": "I:B15PI",
+            "name": "OMX Baltic Telecommunications PI",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "NasdaqGIDS"
+        },
+        {
+            "ticker": "I:B20GI",
+            "name": "OMX Baltic Health Care GI",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "NasdaqGIDS"
+        },
+        {
+            "ticker": "I:B20PI",
+            "name": "OMX Baltic Health Care PI",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "NasdaqGIDS"
+        },
+        {
+            "ticker": "I:B3010GI",
+            "name": "OMX Baltic Banks GI",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "NasdaqGIDS"
+        },
+        {
+            "ticker": "I:B3010PI",
+            "name": "OMX Baltic Banks PI",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "NasdaqGIDS"
+        },
+        {
+            "ticker": "I:B3020GI",
+            "name": "OMX Baltic Financial Services GI",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "NasdaqGIDS"
+        },
+        {
+            "ticker": "I:B3020PI",
+            "name": "OMX Baltic Financial Services PI",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "NasdaqGIDS"
+        },
+        {
+            "ticker": "I:B30GI",
+            "name": "OMX Baltic Financials GI",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "NasdaqGIDS"
+        },
+        {
+            "ticker": "I:B30PI",
+            "name": "OMX Baltic Financials PI",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "NasdaqGIDS"
+        },
+        {
+            "ticker": "I:B35GI",
+            "name": "OMX Baltic Real Estate GI",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "NasdaqGIDS"
+        },
+        {
+            "ticker": "I:B35PI",
+            "name": "OMX Baltic Real Estate PI",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "NasdaqGIDS"
+        },
+        {
+            "ticker": "I:B4020GI",
+            "name": "OMX Baltic Consumer Products and Services GI",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "NasdaqGIDS"
+        },
+        {
+            "ticker": "I:B4020PI",
+            "name": "OMX Baltic Consumer Products and Services PI",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "NasdaqGIDS"
+        },
+        {
+            "ticker": "I:B4030GI",
+            "name": "OMX Baltic Media GI",
+            "market": "indices",
+            "locale": "us",
+            "active": true,
+            "source_feed": "NasdaqGIDS"
+        }
+    ]
 
 
 
@@ -468,15 +833,28 @@ export default function IndexList() {
   }, []);
 
   return (
-    <div>
+    <div className="p-4 h-screen">
+
+        <h2 className="text-gray-600 text-xl font-bold">Indices</h2>
+
+    <div className="h-5/6 overflow-y-auto mt-4 p-2 rounded">
+
       {indices &&
         indices?.map((index) => (
-            <Link  href={`/index/${index.ticker}`}  key={index.ticker}>
-          <p className="text-xs text-red-500" >
+            <p className="text-sm text-blue-500 p-2 hover:text-blue-800" key={index.ticker}   >
+              <Link  href={`/indices/${index.ticker.split(":")[1]}`}  className="">
             {index.name}
-          </p>
             </Link>
+          </p>
         ))}
+    
+    
+        </div>
+    
     </div>
   );
 }
+
+
+// export default IndexList
+export default withAuth(IndexList)
