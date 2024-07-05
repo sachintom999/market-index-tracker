@@ -34,5 +34,5 @@ function IndexDetail() {
 }
 
 
-// export default IndexDetail
-export default withAuth(IndexDetail)
+export default IndexDetail
+// export default withAuth(IndexDetail)

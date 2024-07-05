@@ -6,6 +6,12 @@ import withAuth from "./withAuth";
  function IndexList() {
   const [indices, setIndices] = useState(null);
 
+const url = `${process.env.NEXT_PUBLIC_POLYGON_BASE_URL}/v3/reference/tickers?type=CS&market=stocks&active=true&order=asc&limit=2&sort=name&apiKey=${process.env.NEXT_PUBLIC_POLYGON_API_KEY}`
+
+
+console.log({url})
+
+
 
 
   const indexData = 
@@ -811,12 +817,11 @@ import withAuth from "./withAuth";
   useEffect(() => {
     const fetchIndexData = async (): Promise<any | null> => {
       try {
-        // const response: AxiosResponse<any> = await axios.get(
-        //   `https://jsonplaceholder.typicode.com/users/`
-        // );
-        // console.log({ response });
-        // setIndices(response.data);
-        setIndices(indexData);
+        const response: AxiosResponse<any> = await axios.get(url);
+        console.log("response:",response.data.results)
+        
+        setIndices(response.data.results);
+        // setIndices(indexData);
       } catch (error) {
         if (axios.isAxiosError(error)) {
           console.error("Error with Axios request:", error.message);
@@ -842,7 +847,7 @@ import withAuth from "./withAuth";
       {indices &&
         indices?.map((index) => (
             <p className="text-sm text-blue-500 p-2 hover:text-blue-800" key={index.ticker}   >
-              <Link  href={`/indices/${index.ticker.split(":")[1]}`}  className="">
+              <Link  href={`/indices/${index.ticker}`}  className="">
             {index.name}
             </Link>
           </p>
@@ -856,5 +861,5 @@ import withAuth from "./withAuth";
 }
 
 
-// export default IndexList
-export default withAuth(IndexList)
+export default IndexList
+// export default withAuth(IndexList)
