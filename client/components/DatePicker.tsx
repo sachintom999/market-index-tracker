@@ -12,7 +12,8 @@ const MyDatePicker = () => {
   };
 
   return (
-    <div className="flex items-center justify-center  bg-gray-100 mb-10">
+    <div className="flex items-center justify-center gap-2 bg-gray-100 mb-10">
+      <span className="text-gray-700 text-sm">Date:</span>
       <DatePicker
         selected={marketDate}
         onChange={(newDate) => {
@@ -20,7 +21,7 @@ const MyDatePicker = () => {
           console.log({ newDate, formattedDate });
           setMarketDate(formattedDate);
         }}
-        className="p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 bg-white"
+        className="p-0 text-sm border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 bg-white"
         calendarClassName="bg-white p-2 rounded-md shadow-lg"
         todayButton="Today"
         maxDate={new Date()}

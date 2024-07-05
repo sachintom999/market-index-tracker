@@ -13,7 +13,7 @@ function IndexDetail() {
   return (
     <div className="bg-slate-100 h-screen w-full">
       <Link href={`/dashboard`}>
-        <p className="text-blue-600 text-sm">Back</p>
+        <p className="text-blue-600 text-sm ml-40 pt-10">Back</p>
       </Link>
 
       <div className="w-3/4 m-auto">
