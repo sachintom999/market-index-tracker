@@ -14,6 +14,7 @@ const AuthContext = createContext<any>({
 export const AuthProvider = ({ children }:{children:any}) => {
   const [currentUser, setCurrentUser] = useState<any|null>(null);
   const [username, setUsername] = useState<any|null>(null);
+  const [triggers, setTriggers] = useState<any|null>([]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -23,7 +24,7 @@ export const AuthProvider = ({ children }:{children:any}) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ currentUser, setCurrentUser,setUsername,username }}>
+    <AuthContext.Provider value={{ currentUser, setCurrentUser,setUsername,username,triggers,setTriggers }}>
       {children}
     </AuthContext.Provider>
   );

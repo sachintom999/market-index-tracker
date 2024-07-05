@@ -4,9 +4,16 @@ import React, { useEffect, useState } from "react";
 import { auth } from "@/firebase/config";
 import axios from "axios";
 import { useParams } from "next/navigation";
+import { ToastContainer, toast } from 'react-toastify';
+import { useMarketData } from "@/contexts/marketData";
 
 const ThresholdList = () => {
   const [thresholds, setThresholds] = useState([]);
+
+  const {triggers,setTriggers} = useMarketData()
+
+
+  const notify = () => toast("Wow so easy!");
 
   const { id: index } = useParams();
 
@@ -51,7 +58,7 @@ const ThresholdList = () => {
       </h2>
 
       {thresholds.length === 0 ? (
-        <p className="text-gray-500">No thresholds added yet.</p>
+        <p className="text-gray-500 text-sm">No triggers added.</p>
       ) : (
         <ul className="divide-y divide-gray-200">
           {thresholds &&
@@ -76,6 +83,14 @@ const ThresholdList = () => {
             ))}
         </ul>
       )}
+
+      
+<div>
+        <button onClick={notify} className="bg-red-500 text-white">Notify!</button>
+        <ToastContainer />
+      </div>
+
+
     </div>
   );
 };

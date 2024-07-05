@@ -6,6 +6,7 @@ import { AuthProvider } from "@/contexts/auth";
 import Navbar from "@/components/Navbar";
 import { usePathname } from "next/navigation";
 import { MarketDataProvider } from "@/contexts/marketData";
+import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Inter({ subsets: ["latin"] });
 
