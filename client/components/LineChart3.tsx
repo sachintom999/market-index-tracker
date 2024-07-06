@@ -25,8 +25,14 @@ ChartJS.register(
   Legend
 );
 
+interface ApiDataItem {
+  c: number; 
+  t: number; 
+}
+
 const LineChart3 = () => {
-  const [apiData, setApiData] = useState([]);
+  // const [apiData, setApiData] = useState([]);
+  const [apiData, setApiData] = useState<ApiDataItem[]>([]);
   const { id: index } = useParams();
   const { marketDate } = useMarketData();
 
@@ -43,7 +49,7 @@ const LineChart3 = () => {
     };
 
     fetchIndexData();
-  }, [marketDate]);
+  }, [marketDate,index]);
 
   const chartData = {
     labels: apiData?.map((item) => new Date(item.t)),
@@ -87,7 +93,7 @@ const LineChart3 = () => {
           text: "Price",
         },
         ticks: {
-          callback: function (value) {
+          callback: function (value:number) {
             return value.toFixed(2);
           },
         },
@@ -101,6 +107,8 @@ const LineChart3 = () => {
     },
   };
 
+  
+  // @ts-ignore
   return <Line data={chartData} options={options} />;
 };
 

@@ -25,7 +25,7 @@ function IndexList() {
     fetchIndexData();
 
     return () => {};
-  }, []);
+  }, [url]);
 
   return (
     <div className="p-4 h-screen ">
@@ -33,6 +33,7 @@ function IndexList() {
 
       <div className="h-5/6 overflow-y-auto mt-4 p-2 rounded">
         {indices &&
+          // @ts-ignore
           indices?.map((index) => (
             <p
               className="text-sm text-blue-500 p-2 hover:text-blue-800"

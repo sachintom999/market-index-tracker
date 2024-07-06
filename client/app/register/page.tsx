@@ -5,6 +5,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+
+
+
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,6 +17,7 @@ const Register = () => {
 
   const performSignup = () => {
     const response = handleSignUp(email, password, name);
+  // @ts-ignore
     setCurrentUser(response.user);
     router.push("/dashboard");
   };

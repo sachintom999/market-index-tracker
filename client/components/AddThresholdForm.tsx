@@ -14,7 +14,7 @@ const AddThresholdForm = () => {
 
   const notify = () => toast("Trigger added !");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:React.FormEvent) => {
     e.preventDefault();
 
     const token = await auth.currentUser?.getIdToken();

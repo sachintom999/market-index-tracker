@@ -1,6 +1,7 @@
+import { Request, Response } from "express";
 import { addUserData, getUserData } from "../db";
 
-export const authenticateUser = async (req, res) => {
+export const authenticateUser = async (req:any, res:Response) => {
   let user1;
 
   const email = req.user;
@@ -11,10 +12,17 @@ export const authenticateUser = async (req, res) => {
 
     const user = await addUserData(email, name);
 
-    user1 = {
-      name: user.name,
-      email: user.email,
-    };
+    if (user) {
+      
+      
+      user1 = {
+        name: user.name,
+        email: user.email,
+      };
+      
+    }
+
+    
   } else {
     user1 = {
       name: userData.name,

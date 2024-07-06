@@ -39,7 +39,7 @@ const ThresholdList = () => {
     };
 
     fetchThresholds();
-  }, []);
+  }, [index,setTriggers]);
 
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-white shadow-md rounded-md">
@@ -52,7 +52,7 @@ const ThresholdList = () => {
       ) : (
         <ul className="divide-y divide-gray-200">
           {triggers &&
-            triggers?.map((threshold) => (
+            triggers?.map((threshold:any) => (
               <li key={threshold.id} className="py-4">
                 <div className="flex justify-between items-center">
                   <div className="flex gap-2">

@@ -64,7 +64,7 @@ export default function Login() {
 
         <div className="flex justify-center mt-3">
           <p className="text-gray-600 m-auto">
-            Don't an account?{" "}
+            Don&apos;t an account?
             <Link className="text-blue-600" href={"/register"}>
               Signup here
             </Link>

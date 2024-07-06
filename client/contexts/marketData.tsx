@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from "react";
 
 const MarketDataContext = createContext<any>({});
 
+// @ts-ignore
 export const MarketDataProvider = ({ children }) => {
   const [marketDate, setMarketDate] = useState(getCurrentDate());
   const [triggers, setTriggers] = useState<any|null>([]);
