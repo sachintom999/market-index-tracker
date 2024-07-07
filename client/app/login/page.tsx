@@ -4,7 +4,7 @@ import { handleLogin } from "@/firebase/auth";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useNotify } from "@/hooks/toastNotification";
+import { notify } from "@/hooks/toastNotification";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -17,7 +17,7 @@ export default function Login() {
 
     setCurrentUser(response?.data.user);
     setUsername(response?.data.user1.name);
-    useNotify("Logged in successfully.")
+    notify("Logged in successfully.")
     router.push("/dashboard");
   };
 

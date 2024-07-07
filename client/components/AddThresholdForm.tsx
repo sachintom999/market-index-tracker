@@ -1,6 +1,6 @@
 import { useMarketData } from "@/contexts/marketData";
 import { auth } from "@/firebase/config";
-import { useNotify } from "@/hooks/toastNotification";
+import { notify } from "@/hooks/toastNotification";
 import axios from "axios";
 import { useParams } from "next/navigation";
 import { useState } from "react";
@@ -40,7 +40,7 @@ const AddThresholdForm = () => {
         const { type, value } = response.data.data;
 
         setTriggers([...triggers, { type, value }]);
-        useNotify("Trigger added !");
+        notify("Trigger added !");
       })
       .catch((error) => {
         console.error("Error:", error);

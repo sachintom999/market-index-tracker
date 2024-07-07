@@ -1,3 +1,3 @@
 import { toast } from "react-toastify";
 
-export const useNotify = (message: string) => toast(message);
+export const notify = (message: string) => toast(message);
