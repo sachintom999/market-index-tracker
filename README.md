@@ -1,6 +1,6 @@
 # IndexPulse: Stock Index Tracking App
 
-**IndexPulse** is a web application designed to track stock index values. It features user login/registration, a graphical representation of index values, and an alert system to notify users when stock indices hit specified price thresholds. The application uses Firebase Authentication, Express.js/NestJS, and Next.js, and is hosted on Firebase App Hosting.
+**IndexPulse** is a web application designed to track stock index values. It features user login/registration, a graphical representation of index values, and an alert system to notify users when stock indices hit specified price thresholds. The application uses Firebase Authentication, Express.js/NestJS, and Next.js, and is hosted on Vercel
 
 ## Table of Contents
 
