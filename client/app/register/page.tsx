@@ -15,6 +15,8 @@ const Register = () => {
 
   const performSignup = () => {
     const response = handleSignUp(email, password, name);
+    // @ts-ignore
+    setCurrentUser(response.user);
     notify("User registered successfully.");
     router.push("/login");
   };
