@@ -16,12 +16,6 @@ export const AuthProvider = ({ children }:{children:any}) => {
   const [username, setUsername] = useState<any|null>(null);
   
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
-    });
-    return () => unsubscribe();
-  }, []);
 
   return (
     <AuthContext.Provider value={{ currentUser, setCurrentUser,setUsername,username,}}>

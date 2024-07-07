@@ -1,12 +1,10 @@
 "use client";
 import { useAuth } from "@/contexts/auth";
 import { handleSignUp } from "@/firebase/auth";
+import { useNotify } from "@/hooks/toastNotification";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-
-
-
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -17,9 +15,8 @@ const Register = () => {
 
   const performSignup = () => {
     const response = handleSignUp(email, password, name);
-  // @ts-ignore
-    setCurrentUser(response.user);
-    router.push("/dashboard");
+    useNotify("User registered successfully.");
+    router.push("/login");
   };
 
   return (

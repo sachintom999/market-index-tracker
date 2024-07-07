@@ -6,15 +6,11 @@ import { AuthProvider } from "@/contexts/auth";
 import Navbar from "@/components/Navbar";
 import { usePathname } from "next/navigation";
 import { MarketDataProvider } from "@/contexts/marketData";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 const inter = Inter({ subsets: ["latin"] });
 
-// export const metadata: Metadata = {
-//   title: "IndexPulse",
-//   description:
-//     "IndexPulse: Your comprehensive tool for tracking stock index values. Stay informed with real-time data, set custom alerts, and visualize market trends effortlessly.",
-// };
 
 export default function RootLayout({
   children,
@@ -30,6 +26,9 @@ export default function RootLayout({
           <MarketDataProvider>
             {pathname !== "/" ? <Navbar /> : null}
             {children}
+            <div>
+              <ToastContainer />
+            </div>
           </MarketDataProvider>
         </AuthProvider>
       </body>
